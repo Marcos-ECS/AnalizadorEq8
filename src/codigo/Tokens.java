@@ -9,7 +9,8 @@ package codigo;
  * @author marcos
  */
 public enum Tokens {
-    Reservadas,
+    TipoDeDato,
+    PalabraReservada,
     Igual,
     Suma,
     Resta,
@@ -18,5 +19,11 @@ public enum Tokens {
     Identificador,
     Numero,
     NumeroDecimal,
+    OperadorLogico,
+    OperadorRelacional,
+    ParentesisDeApertura,
+    ParentesisDeCierre,
+    LlaveCerrada,
+    LlaveAbierta,
     ERROR
 }

@@ -11,14 +11,22 @@ espacio=[ ,\t,\r,\n]+
     public String lexeme;
 %}
 %%
-( while | do ) {lexeme=yytext(); return Reservadas;}
+( Coco- | Oso- | Sol- ) {lexeme=yytext(); return TipoDeDato;}
+
+( while | do ) {lexeme=yytext(); return PalabraReservada;}
 {espacio} {/*Ignore*/}
 "//".* {/*Ignore*/}
-"=" {return Igual;}
-"+" {return Suma;}
-"-" {return Resta;}
-"*" {return Multiplicacion;}
-"/" {return Division;}
+"=" {lexeme=yytext(); return Igual;}
+"+" {lexeme=yytext(); return Suma;}
+"-" {lexeme=yytext(); return Resta;}
+"*" {lexeme=yytext(); return Multiplicacion;}
+"/" {lexeme=yytext(); return Division;}
+"&&" | "||"   {lexeme=yytext(); return OperadorLogico;}
+"(" {lexeme=yytext(); return ParentesisDeApertura;}
+")" {lexeme=yytext(); return ParentesisDeCierre;}
+"{" {lexeme=yytext(); return LlaveAbierta;}
+"}" {lexeme=yytext(); return LlaveCerrada;}
+">" | "<" | "==" | "!=" | ">=" | "<=" {lexeme = yytext(); return OperadorRelacional;}
 (LEU{D})* {lexeme=yytext(); return Identificador;}
 ("(-"8{R}8+")")|8{R}8+ {lexeme=yytext(); return Numero;}
 (-8{R}.{D}8+)|(8{R}8.{D}) {lexeme=yytext(); return NumeroDecimal;}

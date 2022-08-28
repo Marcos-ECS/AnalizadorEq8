@@ -54,7 +54,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         txtResultado.setColumns(20);
-        txtResultado.setFont(new java.awt.Font("FreeMono", 1, 36)); // NOI18N
+        txtResultado.setFont(new java.awt.Font("FreeMono", 0, 18)); // NOI18N
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
@@ -111,9 +111,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     }
                     switch (tokens) {
                         case ERROR:
-                            resultado += "Error lexico \n";
+                            resultado += "\n";
                             break;
-                        case Identificador: case Numero: case Reservadas: case NumeroDecimal:
+                        case Identificador: case Numero: case PalabraReservada: case NumeroDecimal: case TipoDeDato: case OperadorRelacional:
                             resultado += lexer.lexeme + " Es un " + tokens + "\n";
                             break;
                         default:

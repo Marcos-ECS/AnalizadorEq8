@@ -1,2 +1,2 @@
 # AnalizadorEq8
-Analizador lexico
+Analizador lexico equipo 8 tarea

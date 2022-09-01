@@ -11,7 +11,9 @@ espacio=[ ,\t,\r,\n]+
     public String lexeme;
 %}
 %%
-( Coco- | Oso- | Sol- ) {lexeme=yytext(); return TipoDeDato;}
+( Coco- ) {lexeme=yytext(); return Entero;}
+( Oso- ) {lexeme=yytext(); return Real;}
+( Sol- ) {lexeme=yytext(); return Cadena;}
 
 ( while | do ) {lexeme=yytext(); return PalabraReservada;}
 {espacio} {/*Ignore*/}
@@ -26,8 +28,9 @@ espacio=[ ,\t,\r,\n]+
 ")" {lexeme=yytext(); return ParentesisDeCierre;}
 "{" {lexeme=yytext(); return LlaveAbierta;}
 "}" {lexeme=yytext(); return LlaveCerrada;}
+"," {lexeme=yytext(); return Coma;}
 ">" | "<" | "==" | "!=" | ">=" | "<=" {lexeme = yytext(); return OperadorRelacional;}
 (LEU{D})* {lexeme=yytext(); return Identificador;}
-("(-"8{R}8+")")|8{R}8+ {lexeme=yytext(); return Numero;}
+(-8{R}8+)|8{R}8+ {lexeme=yytext(); return Numero;}
 (-8{R}.{D}8+)|(8{R}8.{D}) {lexeme=yytext(); return NumeroDecimal;}
  . {return ERROR;}

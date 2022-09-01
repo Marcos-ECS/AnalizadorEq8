@@ -9,7 +9,10 @@ package codigo;
  * @author marcos
  */
 public enum Tokens {
-    TipoDeDato,
+    Entero,
+    Cadena,
+    Coma,
+    Real,
     PalabraReservada,
     Igual,
     Suma,

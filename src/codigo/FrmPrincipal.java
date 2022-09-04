@@ -37,17 +37,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TextoDeEntrada = new javax.swing.JTextField();
         BtnAnalizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtResultado = new javax.swing.JTextArea();
-        TituloTipo = new javax.swing.JLabel();
+        TituloLexema = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        Tipo = new javax.swing.JTextArea();
+        TituloTipo = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TextoDeEntrada = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        TextoDeEntrada.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 
         BtnAnalizar.setText("Analiza");
         BtnAnalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -61,11 +61,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
+        TituloLexema.setText("Lexema");
+
+        Tipo.setColumns(20);
+        Tipo.setFont(new java.awt.Font("FreeMono", 0, 18)); // NOI18N
+        Tipo.setRows(5);
+        jScrollPane2.setViewportView(Tipo);
+
         TituloTipo.setText("Tipo");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        TextoDeEntrada.setColumns(20);
+        TextoDeEntrada.setFont(new java.awt.Font("Arial", 0, 17)); // NOI18N
+        TextoDeEntrada.setRows(5);
+        jScrollPane3.setViewportView(TextoDeEntrada);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,28 +83,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TextoDeEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3)
+                        .addGap(26, 26, 26)
                         .addComponent(BtnAnalizar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(181, 181, 181))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TituloLexema))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TituloTipo)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 41, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(141, 141, 141))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(86, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(BtnAnalizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextoDeEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnAnalizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(TituloTipo)
+                    .addComponent(TituloLexema)
+                    .addComponent(TituloTipo))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
@@ -122,25 +137,70 @@ public class FrmPrincipal extends javax.swing.JFrame {
             Reader lector = new BufferedReader(new FileReader("archivo.txt"));
             Lexer lexer = new Lexer(lector);
                 String resultado = "";
+                String resultado2 = "";
                 while (true){
                     Tokens tokens = lexer.yylex();
                     if(tokens == null){
                         resultado += "FIN";
-                        txtResultado.setText(resultado);
+                        
                         return;
                     }
+                    
                     switch (tokens) {
                         case ERROR:
-                            resultado += "\n";
+                            resultado += "";
                             break;
-                        case Identificador: case Numero: case PalabraReservada: case NumeroDecimal: case Real: case Coma:
-                        case OperadorRelacional: case Entero: case Cadena:
-                            resultado += lexer.lexeme + " Es un " + tokens + "\n";  
+                        case Identificador: case NumeroEnteroCoco: 
+                        case PalabraReservada: case NumeroDecimalOso: case Oso: case Coma:
+                        case OperadorRelacional: case Coco: case Cadena:
+                           case Suma: case Resta: case Division:
+                            case Igual: case ParentesisDeApertura: case Multiplicacion:
+                            case ParentesisDeCierre: case LlaveAbierta: case LlaveCerrada:
+                            
+                            resultado += lexer.lexeme + "\n";  
+                            txtResultado.setText(resultado);
                             break;
                         default:
                             resultado += "Token: " + tokens + "\n";
                     }
+                    
+                    switch (tokens) {
+                        case ERROR:
+                            resultado2 += "";
+                            break;
+                        case Identificador:  case Cadena:
+                            
+                            resultado2 += tokens + "\n";  
+                            Tipo.setText(resultado2);
+                            break;
+                            
+                           case Coco: case Oso: case PalabraReservada: case Coma:
+                            case OperadorRelacional: case Suma: case Resta: case Division:
+                            case Igual: case ParentesisDeApertura: case Multiplicacion:
+                            case ParentesisDeCierre: case LlaveAbierta: case LlaveCerrada:
+                             
+                            resultado2 += "" +"\n";  
+                            Tipo.setText(resultado2);
+                            break;
+                            
+                            case NumeroEnteroCoco:
+                            resultado2 += tokens.Coco +"-" +"\n";  
+                            Tipo.setText(resultado2);
+                            break;
+                            
+                            case NumeroDecimalOso:
+                            resultado2 += tokens.Oso +"-" +"\n";  
+                            Tipo.setText(resultado2);
+                            break;
+                            
+                        default:
+                            resultado2 += "Token: " + tokens + "\n";
+                    }
+                    
+                    
                 }
+                
+                
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -185,11 +245,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAnalizar;
-    private javax.swing.JTextField TextoDeEntrada;
+    private javax.swing.JTextArea TextoDeEntrada;
+    private javax.swing.JTextArea Tipo;
+    private javax.swing.JLabel TituloLexema;
     private javax.swing.JLabel TituloTipo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea txtResultado;
     // End of variables declaration//GEN-END:variables
 }

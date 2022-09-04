@@ -9,10 +9,10 @@ package codigo;
  * @author marcos
  */
 public enum Tokens {
-    Entero,
+    Coco,
     Cadena,
     Coma,
-    Real,
+    Oso,
     PalabraReservada,
     Igual,
     Suma,
@@ -20,8 +20,8 @@ public enum Tokens {
     Multiplicacion,
     Division,
     Identificador,
-    Numero,
-    NumeroDecimal,
+    NumeroEnteroCoco,
+    NumeroDecimalOso,
     OperadorLogico,
     OperadorRelacional,
     ParentesisDeApertura,

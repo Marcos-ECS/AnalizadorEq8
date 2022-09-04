@@ -5,17 +5,19 @@ import static codigo.Tokens.*;
 %type Tokens
 L=[a-zA-Z_]+
 D=[0-9]+
-R=[0-9]+
-espacio=[ ,\t,\r,\n]+
+E=[0-9]
+OCHO=[8]
+
+espacio=[ \t,\r,\n]+
 %{
     public String lexeme;
 %}
 %%
-( Coco- ) {lexeme=yytext(); return Entero;}
-( Oso- ) {lexeme=yytext(); return Real;}
+( Coco- ) {lexeme=yytext(); return Coco;}
+( Oso- ) {lexeme=yytext(); return Oso;}
 ( Sol- ) {lexeme=yytext(); return Cadena;}
 
-( while | do ) {lexeme=yytext(); return PalabraReservada;}
+( 8while8 | 8do8 ) {lexeme=yytext(); return PalabraReservada;}
 {espacio} {/*Ignore*/}
 "//".* {/*Ignore*/}
 "=" {lexeme=yytext(); return Igual;}
@@ -28,9 +30,9 @@ espacio=[ ,\t,\r,\n]+
 ")" {lexeme=yytext(); return ParentesisDeCierre;}
 "{" {lexeme=yytext(); return LlaveAbierta;}
 "}" {lexeme=yytext(); return LlaveCerrada;}
-"," {lexeme=yytext(); return Coma;}
+"," | ";" {lexeme=yytext(); return Coma;}
 ">" | "<" | "==" | "!=" | ">=" | "<=" {lexeme = yytext(); return OperadorRelacional;}
 (LEU{D})* {lexeme=yytext(); return Identificador;}
-(-8{R}8+)|8{R}8+ {lexeme=yytext(); return Numero;}
-(-8{R}.{D}8+)|(8{R}8.{D}) {lexeme=yytext(); return NumeroDecimal;}
+(-{OCHO}{E}+{OCHO})|({OCHO}{E}+{OCHO}) {lexeme=yytext(); return NumeroEnteroCoco;}
+(-{OCHO}{E}+{OCHO}"."{D})|({OCHO}{E}+{OCHO}"."{D}) {lexeme=yytext(); return NumeroDecimalOso;}
  . {return ERROR;}

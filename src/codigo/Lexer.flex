@@ -32,7 +32,7 @@ espacio=[ \t,\r,\n]+
 "}" {lexeme=yytext(); return LlaveCerrada;}
 "," | ";" {lexeme=yytext(); return Coma;}
 ">" | "<" | "==" | "!=" | ">=" | "<=" {lexeme = yytext(); return OperadorRelacional;}
-(LEU{D})* {lexeme=yytext(); return Identificador;}
+(LEU{D}.)* {lexeme=yytext(); return Identificador;}
 (-{OCHO}{E}+{OCHO})|({OCHO}{E}+{OCHO}) {lexeme=yytext(); return NumeroEnteroCoco;}
 (-{OCHO}{E}+{OCHO}"."{D})|({OCHO}{E}+{OCHO}"."{D}) {lexeme=yytext(); return NumeroDecimalOso;}
  . {return ERROR;}

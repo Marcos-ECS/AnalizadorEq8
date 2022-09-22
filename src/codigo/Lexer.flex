@@ -3,11 +3,13 @@ import static codigo.Tokens.*;
 %%
 %class Lexer
 %type Tokens
-L=[a-zA-Z_]+
+Letras=[a-zA-Z_]+
 D=[0-9]+
-E=[0-9]
+Enteros=[0-9]
 OCHO=[8]
-
+L=[L]
+E=[E]
+U=[U]
 espacio=[ \t,\r,\n]+
 %{
     public String lexeme;
@@ -15,7 +17,8 @@ espacio=[ \t,\r,\n]+
 %%
 ( Coco- ) {lexeme=yytext(); return Coco;}
 ( Oso- ) {lexeme=yytext(); return Oso;}
-( Sol- ) {lexeme=yytext(); return Cadena;}
+( Sol- ) {lexeme=yytext(); return Sol;}
+(LEU{Letras}) {lexeme=yytext(); return Cadena;}
 
 ( 8while8 | 8do8 ) {lexeme=yytext(); return PalabraReservada;}
 {espacio} {/*Ignore*/}
@@ -32,7 +35,7 @@ espacio=[ \t,\r,\n]+
 "}" {lexeme=yytext(); return LlaveCerrada;}
 "," | ";" {lexeme=yytext(); return Coma;}
 ">" | "<" | "==" | "!=" | ">=" | "<=" {lexeme = yytext(); return OperadorRelacional;}
-(LEU{D}.)* {lexeme=yytext(); return Identificador;}
-(-{OCHO}{E}+{OCHO})|({OCHO}{E}+{OCHO}) {lexeme=yytext(); return NumeroEnteroCoco;}
-(-{OCHO}{E}+{OCHO}"."{D})|({OCHO}{E}+{OCHO}"."{D}) {lexeme=yytext(); return NumeroDecimalOso;}
+({D}.)* {lexeme=yytext(); return Identificador;}
+(LEU-{OCHO}{Enteros}+{OCHO})|(LEU{OCHO}{Enteros}+{OCHO}) {lexeme=yytext(); return NumeroEnteroCoco;}
+(LEU-{OCHO}{Enteros}+{OCHO}+"."{D})|(LEU{OCHO}{Enteros}+{OCHO}+"."{D}) {lexeme=yytext(); return NumeroDecimalOso;}
  . {return ERROR;}

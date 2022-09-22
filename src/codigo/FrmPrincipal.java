@@ -150,10 +150,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         case ERROR:
                             resultado += "";
                             break;
-                        case Identificador: case NumeroEnteroCoco: 
+                        /*case Identificador:*/ case NumeroEnteroCoco: 
                         case PalabraReservada: case NumeroDecimalOso: case Oso: case Coma:
-                        case OperadorRelacional: case Coco: case Cadena:
-                           case Suma: case Resta: case Division:
+                        case OperadorRelacional: case Coco: case Cadena: case Sol:
+                           case Suma: case Resta: case Division: 
                             case Igual: case ParentesisDeApertura: case Multiplicacion:
                             case ParentesisDeCierre: case LlaveAbierta: case LlaveCerrada:
                             
@@ -161,24 +161,29 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             txtResultado.setText(resultado);
                             break;
                         default:
-                            resultado += "Token: " + tokens + "\n";
+                            /*resultado += "Token: " + tokens + "\n";*/
                     }
                     
                     switch (tokens) {
                         case ERROR:
                             resultado2 += "";
                             break;
-                        case Identificador:  case Cadena:
+                       /* case Identificador :
                             
                             resultado2 += tokens + "\n";  
                             Tipo.setText(resultado2);
-                            break;
+                            break;*/
                             
-                           case Coco: case Oso: case PalabraReservada: case Coma:
+                           case PalabraReservada: case Coma:
                             case OperadorRelacional: case Suma: case Resta: case Division:
                             case Igual: case ParentesisDeApertura: case Multiplicacion:
                             case ParentesisDeCierre: case LlaveAbierta: case LlaveCerrada:
                              
+                            resultado2 += "" +"\n";  
+                            Tipo.setText(resultado2);
+                            break;
+                            
+                            case Coco: case Oso: case Sol: 
                             resultado2 += "" +"\n";  
                             Tipo.setText(resultado2);
                             break;
@@ -193,8 +198,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
                             Tipo.setText(resultado2);
                             break;
                             
+                            case Cadena:
+                            resultado2 += tokens.Sol +"-" +"\n";  
+                            Tipo.setText(resultado2);
+                            break;
+                            
                         default:
-                            resultado2 += "Token: " + tokens + "\n";
+                            /*resultado2 += "Token: " + tokens + "\n";*/
                     }
                     
                     

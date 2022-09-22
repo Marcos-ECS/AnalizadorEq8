@@ -10,6 +10,7 @@ package codigo;
  */
 public enum Tokens {
     Coco,
+    Sol,
     Cadena,
     Coma,
     Oso,
